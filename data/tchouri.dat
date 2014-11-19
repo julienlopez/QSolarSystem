@@ -1,0 +1,107 @@
+*******************************************************************************
+JPL/HORIZONS              67P/Churyumov-Gerasimenko        2014-Nov-19 02:58:32
+Rec #:900647          Soln.date: 2014-Nov-10_13:30:50   # obs: 3631 (1988-2014)
+ 
+FK5/J2000.0 helio. ecliptic osc. elements (au, days, deg., period=Julian yrs): 
+ 
+  EPOCH=  2456981.5 != 2014-Nov-20.0000000 (CT)   RMSW= n.a.                   
+   EC= .6409739314162571   QR= 1.243241682517044   TP= 2457247.5718872189      
+   OM= 50.14210951437195   W= 12.78560606538363    IN= 7.040200902346087       
+   A= 3.462817302992186    MA= 319.30334677881     ADIST= 5.682392923467328    
+   PER= 6.443956243293     N= .152953597           ANGMOM= .024570278          
+   DAN= 1.2554             DDN= 5.44151            L= 62.8344513               
+   B= 1.5542943            MOID= .25718901         TP= 2015-Aug-13.0718872189  
+ 
+Comet physical (GM= km^3/s^2; RAD= km):                                        
+   GM= n.a.                RAD= 2.                                             
+   M1=  11.4     M2=  n.a.     k1=  11.    k2= n.a.     PHCOF= n.a.            
+ 
+Comet non-gravitational force model (AMRAT=m^2/kg;A1-A3=au/d^2;DT=days;R0=au): 
+   AMRAT=  0.                                      DT=  0.                     
+   A1= 1.085259467363E-9   A2= 1.073852647096E-10  A3= 1.958760246634E-10      
+ Standard model:                                                               
+   ALN=  .1112620426   NK=  4.6142   NM=  2.15     NN=  5.093    R0=  2.808    
+ 
+COMET comments 
+1: soln ref.= JPL#K084/21, data arc: 1988-07-06 to 2014-10-23
+2: k1=11.;
+*******************************************************************************
+ 
+ GMSUN for CETPV=    2.9591220828559D-04
+ 
+*******************************************************************************
+Ephemeris / WWW_USER Wed Nov 19 02:58:32 2014 Pasadena, USA      / Horizons    
+*******************************************************************************
+Target body name: 67P/Churyumov-Gerasimenko       {source: JPL#K084/21}
+Center body name: Solar System Barycenter (0)     {source: DE-0431LE-0431}
+Center-site name: BODY CENTER
+*******************************************************************************
+Start time      : A.D. 2014-Nov-18 00:00:00.0000 CT 
+Stop  time      : A.D. 2014-Nov-19 00:00:00.0000 CT 
+Step-size       : 1440 minutes
+*******************************************************************************
+Center geodetic : 0.00000000,0.00000000,0.0000000 {E-lon(deg),Lat(deg),Alt(km)}
+Center cylindric: 0.00000000,0.00000000,0.0000000 {E-lon(deg),Dxy(km),Dz(km)}
+Center radii    : (undefined)                                                  
+Small perturbers: Yes                             {source: SB431-BIG16}
+Output units    : KM-S                                                         
+Output format   : 02
+Reference frame : ICRF/J2000.0                                                 
+Output type     : GEOMETRIC cartesian states
+Coordinate systm: Ecliptic and Mean Equinox of Reference Epoch                 
+*******************************************************************************
+Initial FK5/J2000.0 heliocentric ecliptic osculating elements (au, days, deg.):
+  EPOCH=  2456981.5 != 2014-Nov-20.0000000 (CT)   RMSW= n.a.                   
+   EC= .6409739314162571   QR= 1.243241682517044   TP= 2457247.5718872189      
+   OM= 50.14210951437195   W= 12.78560606538363    IN= 7.040200902346087       
+Comet physical (GM= km^3/s^2; RAD= km):                                        
+   GM= n.a.                RAD= 2.                                             
+   M1=  11.4     M2=  n.a.     k1=  11.    k2= n.a.     PHCOF= n.a.            
+Comet non-gravitational force model (AMRAT=m^2/kg;A1-A3=au/d^2;DT=days;R0=au): 
+   AMRAT=  0.                                      DT=  0.                     
+   A1= 1.085259467363E-9   A2= 1.073852647096E-10  A3= 1.958760246634E-10      
+ Standard model:                                                               
+   ALN=  .1112620426   NK=  4.6142   NM=  2.15     NN=  5.093    R0=  2.808    
+*******************************************************************************
+JDCT 
+   X     Y     Z
+   VX    VY    VZ
+*******************************************************************************
+$$SOE
+2456979.500000000 = A.D. 2014-Nov-18 00:00:00.0000 (CT)
+   2.454885392490096E+08 -3.641943996098688E+08 -5.206686732739964E+07
+   5.421940955257122E+00  1.773751338085615E+01  8.897140764622012E-01
+$$EOE
+*******************************************************************************
+Coordinate system description:
+
+  Ecliptic and Mean Equinox of Reference Epoch
+
+    Reference epoch: J2000.0
+    xy-plane: plane of the Earth's orbit at the reference epoch
+    x-axis  : out along ascending node of instantaneous plane of the Earth's
+              orbit and the Earth's mean equator at the reference epoch
+    z-axis  : perpendicular to the xy-plane in the directional (+ or -) sense
+              of Earth's north pole at the reference epoch.
+
+Symbol meaning  
+
+    JDCT     Epoch Julian Date, Coordinate Time
+      X      x-component of position vector (km)                               
+      Y      y-component of position vector (km)                               
+      Z      z-component of position vector (km)                               
+      VX     x-component of velocity vector (km/sec)                           
+      VY     y-component of velocity vector (km/sec)                           
+      VZ     z-component of velocity vector (km/sec)                           
+
+Geometric states/elements have no aberration corrections applied.
+
+ Computations by ...
+     Solar System Dynamics Group, Horizons On-Line Ephemeris System
+     4800 Oak Grove Drive, Jet Propulsion Laboratory
+     Pasadena, CA  91109   USA
+     Information: http://ssd.jpl.nasa.gov/
+     Connect    : telnet://ssd.jpl.nasa.gov:6775  (via browser)
+                  telnet ssd.jpl.nasa.gov 6775    (via command-line)
+     Author     : Jon.Giorgini@jpl.nasa.gov
+*******************************************************************************
