@@ -3,11 +3,15 @@
 
 #include <array>
 #include <cassert>
+#include <numeric>
 
 template<class T, std::size_t DIM>
 class Point
 {
 public:
+    using value_type = T;
+    using value_squared_type = decltype(T() * T());
+
     Point() = delete;
 //    {
 //        std::fill(m_values.begin(), m_values.end(), {});
@@ -50,6 +54,16 @@ public:
     {
         static_assert(DIM > 2, "");
         return m_values[2];
+    }
+
+    value_squared_type norm2() const
+    {
+        return std::inner_product(m_values.cbegin(), m_values.cend(), m_values.cbegin(), value_squared_type());
+    }
+
+    T norm() const
+    {
+        return sqrt(norm2());
     }
 
 private:

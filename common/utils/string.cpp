@@ -55,7 +55,7 @@ bool string::startsWith(const std::string& str, const std::string& token)
 auto string::split(std::string str, const std::string& token) -> string_container_t
 {
     string_container_t res;
-    return boost::algorithm::split(res, str, boost::algorithm::is_any_of(" "));
+    return boost::algorithm::split(res, str, boost::algorithm::is_any_of(token));
 }
 
 END_NAMESPACE_UTILS

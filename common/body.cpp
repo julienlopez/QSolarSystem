@@ -2,6 +2,11 @@
 
 #include <iostream>
 
+boost::units::quantity<boost::units::si::length> sqrt(const decltype(boost::units::quantity<boost::units::si::length>()*boost::units::quantity<boost::units::si::length>())& l2)
+{
+    return sqrt(l2.value()) * boost::units::si::meter;
+}
+
 Body::Body(std::string name_, const mass_t& mass_, const length_t& meanRadius_, const position_vector_t& position_, const velocity_vector_t& velocity_):
     m_name(std::move(name_)), m_mass(mass_), m_meanRadius(meanRadius_), m_position(position_), m_velocity(velocity_)
 {}
@@ -39,6 +44,7 @@ std::ostream& operator<<(std::ostream& o, const Body& body)
     o << "Mean Radius: " << body.meanRadius().value() << "m" << std::endl;
     o << "Position: " << body.position() << std::endl;
     o << "velocity: " << body.velocity() << std::endl;
+    return o;
 }
 
 std::ostream& operator<<(std::ostream& o, const Body::position_vector_t& point)

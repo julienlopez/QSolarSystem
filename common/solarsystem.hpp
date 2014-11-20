@@ -10,6 +10,14 @@ public:
 
     void add(Body body);
 
+    template<class FCT>
+    void forEachBody(FCT fct) const
+    {
+        std::for_each(m_bodies.cbegin(), m_bodies.cend(), fct);
+    }
+
+    Body::length_t longestDistanceFromTheCenter() const;
+
 private:
     using container_t = std::vector<Body>;
 

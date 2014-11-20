@@ -10,6 +10,8 @@
 
 #include <utils/noncopiable.hpp>
 
+boost::units::quantity<boost::units::si::length> sqrt(const decltype(boost::units::quantity<boost::units::si::length>()*boost::units::quantity<boost::units::si::length>())& l2);
+
 #include "point.hpp"
 
 class Body : private utils::noncopiable
@@ -17,6 +19,7 @@ class Body : private utils::noncopiable
 public:
     using mass_t = boost::units::quantity<boost::units::si::mass>;
     using length_t = boost::units::quantity<boost::units::si::length>;
+    using length2_t = decltype(length_t()*length_t());
     using velocity_t = boost::units::quantity<boost::units::si::velocity>;
     using position_vector_t = Point3D<length_t>;
     using velocity_vector_t = Point3D<velocity_t>;

@@ -36,4 +36,5 @@ HEADERS  += mainwindow.hpp \
     ../common/utils/noninstantiable.hpp \
     ../common/utils/pimpl.hpp \
     ../common/utils/string.hpp \
+    ../common/point.hpp \
     screen.hpp
