@@ -23,7 +23,8 @@ SOURCES += main.cpp\
     ../common/bodyparser.cpp \
     ../common/solarsystem.cpp \
     ../common/utils/string.cpp \
-    screen.cpp
+    screen.cpp \
+    commanddock.cpp
 
 HEADERS  += mainwindow.hpp \
     ../common/body.hpp \
@@ -37,4 +38,5 @@ HEADERS  += mainwindow.hpp \
     ../common/utils/pimpl.hpp \
     ../common/utils/string.hpp \
     ../common/point.hpp \
-    screen.hpp
+    screen.hpp \
+    commanddock.hpp

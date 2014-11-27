@@ -6,12 +6,21 @@
 #include <bodyparser.hpp>
 
 #include "screen.hpp"
+#include "commanddock.hpp"
 
 MainWindow::MainWindow(QWidget* p): QMainWindow(p)
 {
     loadSystem();
     auto* screen = new Screen(m_solarSystem);
     setCentralWidget(screen);
+
+    auto* commandDock = new CommandDock;
+    addDockWidget(Qt::RightDockWidgetArea, commandDock);
+
+    connect(commandDock, &CommandDock::play, screen, &Screen::play);
+    connect(commandDock, &CommandDock::pause, screen, &Screen::pause);
+    connect(commandDock, &CommandDock::reset, screen, &Screen::reset);
+    connect(commandDock, &CommandDock::step, screen, &Screen::step);
 }
 
 MainWindow::~MainWindow()

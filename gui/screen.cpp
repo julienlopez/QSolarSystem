@@ -5,12 +5,13 @@
 #include <solarsystem.hpp>
 
 #include <QPainter>
+#include <QTimer>
 
 using std::placeholders::_1;
 
 #include <QDebug>
 
-Screen::Screen(const SolarSystem& solarSystem, QWidget* p) :
+Screen::Screen(SolarSystem& solarSystem, QWidget* p) :
     QWidget(p), m_solarSystem(solarSystem)
 {
     setMinimumSize(800, 600);
@@ -18,6 +19,10 @@ Screen::Screen(const SolarSystem& solarSystem, QWidget* p) :
     pal.setColor(QPalette::Window, Qt::black);
     setPalette(pal);
     setAutoFillBackground(true);
+
+    m_paintTimer = new QTimer(this);
+    m_paintTimer->setInterval(s_dt * 1000);
+    connect(m_paintTimer, &QTimer::timeout, this, &Screen::onPaintTimerClick);
 }
 
 void Screen::resizeEvent(QResizeEvent* evt)
@@ -43,7 +48,7 @@ void Screen::paintEvent(QPaintEvent* evt)
 
     auto pen = p.pen();
     pen.setColor(Qt::white);
-    pen.setWidthF(0.5*10E+9);
+    pen.setWidthF(10E+8);
     p.setPen(pen);
 
     p.translate(m_zoomParameters.margeX, m_zoomParameters.margeY);
@@ -53,6 +58,10 @@ void Screen::paintEvent(QPaintEvent* evt)
     p.drawLine(QPointF(0, m_zoomParameters.maxDistance), QPointF(0, -m_zoomParameters.maxDistance));
     p.drawLine(QPointF(m_zoomParameters.maxDistance, 0), QPointF(-m_zoomParameters.maxDistance, 0));
 
+    pen.setWidthF(0.5*10E+9);
+    p.setPen(pen);
+    QBrush brush(Qt::white);
+    p.setBrush(brush);
     m_solarSystem.forEachBody(std::bind(&Screen::paintBody, this, std::ref(p), _1));
 }
 
@@ -60,5 +69,37 @@ void Screen::paintBody(QPainter& painter, const Body& body)
 {
     const auto& position = body.position();
     qDebug() << "drawing {" << position.x().value() << ", " << position.y().value() << "} : " << body.meanRadius().value();
-    painter.drawEllipse(QPointF(position.x().value(), position.y().value()), 10E+9, 10E+9);
+    const auto diameter = std::max(body.meanRadius().value()*2, 5*10E+7);
+    painter.drawEllipse(QPointF(position.x().value(), position.y().value()), diameter, diameter);
+}
+
+void Screen::play()
+{
+    qDebug() << "Screen::play()";
+    m_paintTimer->start();
+}
+
+void Screen::pause()
+{
+    qDebug() << "Screen::pause()";
+    m_paintTimer->stop();
+}
+
+void Screen::reset()
+{
+    qDebug() << "Screen::reset()";
+
+}
+
+void Screen::onPaintTimerClick()
+{
+    qDebug() << "Screen::onPaintTimerClick()";
+
+    update();
+}
+
+void Screen::step()
+{
+    qDebug() << "Screen::step()";
+
 }
