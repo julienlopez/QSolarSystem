@@ -15,7 +15,7 @@ TEMPLATE = app
 
 INCLUDEPATH += ../common/
 
-LIBS += -lboost_system -lboost_filesystem
+LIBS += -lboost_system$$BOOST_SUFFIX -lboost_filesystem$$BOOST_SUFFIX
 
 SOURCES += main.cpp\
         mainwindow.cpp \

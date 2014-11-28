@@ -19,7 +19,4 @@ DESTDIR = $$QSOLARSYSTEM_BIN
 QMAKE_CXXFLAGS += -std=c++11 -Wall -Wextra -pedantic -Wshadow -Wpointer-arith -Wcast-align -Wwrite-strings -Wmissing-declarations -Wredundant-decls -Wno-long-long -Wuninitialized
 # -Wconversion -Winline
 
-HEADERS += \
-    $$PWD/common/point.hpp
-
-SOURCES +=
+include(boost.pri)
