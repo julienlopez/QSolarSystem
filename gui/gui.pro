@@ -24,7 +24,8 @@ SOURCES += main.cpp\
     ../common/solarsystem.cpp \
     ../common/utils/string.cpp \
     screen.cpp \
-    commanddock.cpp
+    commanddock.cpp \
+    ../common/solarsystemupdater.cpp
 
 HEADERS  += mainwindow.hpp \
     ../common/body.hpp \
@@ -39,4 +40,5 @@ HEADERS  += mainwindow.hpp \
     ../common/utils/string.hpp \
     ../common/point.hpp \
     screen.hpp \
-    commanddock.hpp
+    commanddock.hpp \
+    ../common/solarsystemupdater.hpp
