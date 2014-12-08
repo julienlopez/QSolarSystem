@@ -4,6 +4,7 @@
 #include <array>
 #include <cassert>
 #include <numeric>
+#include <cmath>
 
 template<class T, std::size_t DIM>
 class Point
@@ -12,10 +13,10 @@ public:
     using value_type = T;
     using value_squared_type = decltype(T() * T());
 
-    Point() = delete;
-//    {
-//        std::fill(m_values.begin(), m_values.end(), {});
-//    }
+    Point()
+    {
+        std::fill(m_values.begin(), m_values.end(), T{});
+    }
 
 //    template<class ... Args>
 //    Point(Args&&... args): m_values(std::forward<Args>(args)...)
@@ -83,6 +84,13 @@ public:
         return sqrt(norm2());
     }
 
+    Point& operator +=(const Point& p)
+    {
+        for(std::size_t i = 0; i < m_values.size(); ++i)
+            m_values[i] += p.m_values[i];
+        return *this;
+    }
+
     Point& operator -=(const Point& p)
     {
         for(std::size_t i = 0; i < m_values.size(); ++i)
@@ -121,10 +129,23 @@ private:
 };
 
 template<class T, std::size_t DIM>
+Point<T, DIM> operator+(Point<T, DIM> p1, const Point<T, DIM>& p2)
+{
+    p1 += p2;
+    return p1;
+}
+
+template<class T, std::size_t DIM>
 Point<T, DIM> operator-(Point<T, DIM> p1, const Point<T, DIM>& p2)
 {
     p1 -= p2;
     return p1;
+}
+
+template<class T, std::size_t DIM>
+Point<T, DIM> operator*(T scalar, const Point<T, DIM>& p)
+{
+    return p * scalar;
 }
 
 template<class T> using Point3D = Point<T, 3>;
