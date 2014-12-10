@@ -3,16 +3,20 @@
 
 #include <utils/noncopiable.hpp>
 
+#include <memory>
+
 #include <QWidget>
 
 class Body;
 class SolarSystem;
+class iUpdater;
 
 class Screen : public QWidget, private utils::noncopiable
 {
     Q_OBJECT
 public:
     explicit Screen(SolarSystem& solarSystem, QWidget* p = 0);
+    ~Screen();
 
     static constexpr double s_dt = 0.04;
 
@@ -30,6 +34,7 @@ private:
     };
 
     SolarSystem& m_solarSystem;
+    std::unique_ptr<iUpdater> m_updater;
     ZoomParameters m_zoomParameters;
     QTimer* m_paintTimer;
 

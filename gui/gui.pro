@@ -13,6 +13,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = QSolarSystem
 TEMPLATE = app
 
+CONFIG += debug_and_release
+
 INCLUDEPATH += ../common/
 
 LIBS += -lboost_system$$BOOST_SUFFIX -lboost_filesystem$$BOOST_SUFFIX
@@ -25,7 +27,9 @@ SOURCES += main.cpp\
     ../common/utils/string.cpp \
     screen.cpp \
     commanddock.cpp \
-    ../common/solarsystemupdater.cpp
+#    ../common/updater/updaterboostwithunits.cpp \
+    ../common/updater/updaterboostnounits.cpp \
+    ../common/updater/iupdater.cpp
 
 HEADERS  += mainwindow.hpp \
     ../common/body.hpp \
@@ -41,4 +45,12 @@ HEADERS  += mainwindow.hpp \
     ../common/point.hpp \
     screen.hpp \
     commanddock.hpp \
-    ../common/solarsystemupdater.hpp
+#    ../common/updater/updaterboostwithunits.hpp \
+    ../common/updater/updaterboostnounits.hpp \
+    ../common/updater/iupdater.hpp \
+    ../common/updater/crtp_updater.hpp \
+    ../common/utils/factory.hpp \
+    ../common/utils/defaultfactoryerrorpolicy.hpp \
+    ../common/utils/singleton.hpp \
+    ../common/updater/updaterfactory.hpp \
+    ../common/updater/parametertrait.hpp

@@ -3,6 +3,7 @@
 #include <functional>
 
 #include <solarsystem.hpp>
+#include <updater/updaterfactory.hpp>
 
 #include <QPainter>
 #include <QTimer>
@@ -11,8 +12,10 @@ using std::placeholders::_1;
 
 #include <QDebug>
 
+constexpr double Screen::s_dt;
+
 Screen::Screen(SolarSystem& solarSystem, QWidget* p) :
-    QWidget(p), m_solarSystem(solarSystem)
+    QWidget(p), m_solarSystem(solarSystem), m_updater(UpdaterFactory::instance().create("UpdaterBoostNoUnits", std::ref(solarSystem)))
 {
     setMinimumSize(800, 600);
     auto pal = palette();
@@ -24,6 +27,9 @@ Screen::Screen(SolarSystem& solarSystem, QWidget* p) :
     m_paintTimer->setInterval(s_dt * 1000);
     connect(m_paintTimer, &QTimer::timeout, this, &Screen::onPaintTimerClick);
 }
+
+Screen::~Screen()
+{}
 
 void Screen::resizeEvent(QResizeEvent* evt)
 {
@@ -94,12 +100,12 @@ void Screen::reset()
 void Screen::onPaintTimerClick()
 {
     qDebug() << "Screen::onPaintTimerClick()";
-
+    m_updater->update(s_dt * boost::units::si::seconds);
     update();
 }
 
 void Screen::step()
 {
     qDebug() << "Screen::step()";
-
+    onPaintTimerClick();
 }

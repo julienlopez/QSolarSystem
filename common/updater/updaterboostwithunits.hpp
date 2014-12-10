@@ -15,7 +15,7 @@ namespace _impl_ {
     };
 }
 
-class SolarSystemUpdater
+class UpdaterBoostWithUnits
 {
 public:
     static const decltype(_impl_::computeGravitationalConsant()) gravitational_constant;
@@ -62,7 +62,7 @@ public:
         void operator()(const q_container_t& q, dpdt_container_t& dpdt) const;
     };
 
-    SolarSystemUpdater(SolarSystem& solarSystem);
+    UpdaterBoostWithUnits(SolarSystem& solarSystem);
 
     void update(boost::units::quantity<boost::units::si::time> dt, std::size_t nbPeriod = 1);
 

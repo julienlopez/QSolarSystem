@@ -1,14 +1,14 @@
-#include "solarsystemupdater.hpp"
+#include "updaterboostwithunits.hpp"
 
 #include <boost/numeric/odeint.hpp>
 
-const decltype(_impl_::computeGravitationalConsant()) SolarSystemUpdater::gravitational_constant = _impl_::computeGravitationalConsant();
+const decltype(_impl_::computeGravitationalConsant()) UpdaterBoostWithUnits::gravitational_constant = _impl_::computeGravitationalConsant();
 
-SolarSystemUpdater::solar_system_coor::solar_system_coor(const mass_container_t& masses):
+UpdaterBoostWithUnits::solar_system_coor::solar_system_coor(const mass_container_t& masses):
     m_masses(masses)
 {}
 
-void SolarSystemUpdater::solar_system_coor::operator()(const p_container_t& p, dqdt_container_t& dqdt) const
+void UpdaterBoostWithUnits::solar_system_coor::operator()(const p_container_t& p, dqdt_container_t& dqdt) const
 {
     assert(p.size() == m_masses.size());
     assert(dqdt.size() == m_masses.size());
@@ -17,19 +17,19 @@ void SolarSystemUpdater::solar_system_coor::operator()(const p_container_t& p, d
         dqdt[i] = p[i] / m_masses[i];
 }
 
-SolarSystemUpdater::solar_system_momentum::solar_system_momentum(const mass_container_t& masses):
+UpdaterBoostWithUnits::solar_system_momentum::solar_system_momentum(const mass_container_t& masses):
     m_masses(masses)
 {}
 
-void SolarSystemUpdater::solar_system_momentum::operator()(const q_container_t& q, dpdt_container_t& dpdt) const
+void UpdaterBoostWithUnits::solar_system_momentum::operator()(const q_container_t& q, dpdt_container_t& dpdt) const
 {
     assert(q.size() == m_masses.size());
     assert(dpdt.size() == m_masses.size());
     const size_t n = q.size();
     for(size_t i=0 ; i<n ; ++i)
     {
-        const auto null_mass_acceleration = .0 * boost::units::si::meters_per_second_squared * boost::units::si::kilogram;
-        dpdt[i] = {null_mass_acceleration, null_mass_acceleration, null_mass_acceleration};
+//        const auto null_mass_acceleration = .0 * boost::units::si::meters_per_second_squared * boost::units::si::kilogram;
+        dpdt[i] = mass_acceleration_vector_t{/*null_mass_acceleration*/};
         for(size_t j=0 ; j<i ; ++j)
         {
             const auto diff = q[j] - q[i];
@@ -42,11 +42,11 @@ void SolarSystemUpdater::solar_system_momentum::operator()(const q_container_t& 
     }
 }
 
-SolarSystemUpdater::SolarSystemUpdater(SolarSystem& solarSystem):
+UpdaterBoostWithUnits::UpdaterBoostWithUnits(SolarSystem& solarSystem):
     m_solarSystem(solarSystem)
 {}
 
-void SolarSystemUpdater::update(boost::units::quantity<boost::units::si::time> dt, std::size_t nbPeriod)
+void UpdaterBoostWithUnits::update(boost::units::quantity<boost::units::si::time> dt, std::size_t nbPeriod)
 {
     using stepper_type = boost::numeric::odeint::symplectic_rkn_sb3a_mclachlan<q_container_t, p_container_t>;
 
@@ -61,7 +61,7 @@ void SolarSystemUpdater::update(boost::units::quantity<boost::units::si::time> d
             0.0*boost::units::si::second, dt, nbPeriod /*, streaming_observer(cout)*/);
 }
 
-auto SolarSystemUpdater::extractMasses() const -> mass_container_t
+auto UpdaterBoostWithUnits::extractMasses() const -> mass_container_t
 {
     mass_container_t res;
     std::size_t i = 0;
@@ -69,7 +69,7 @@ auto SolarSystemUpdater::extractMasses() const -> mass_container_t
     return res;
 }
 
-auto SolarSystemUpdater::extractPositions() const -> q_container_t
+auto UpdaterBoostWithUnits::extractPositions() const -> q_container_t
 {
     q_container_t res;
     std::size_t i = 0;
@@ -77,7 +77,7 @@ auto SolarSystemUpdater::extractPositions() const -> q_container_t
     return res;
 }
 
-auto SolarSystemUpdater::extractMomentums() const -> p_container_t
+auto UpdaterBoostWithUnits::extractMomentums() const -> p_container_t
 {
     p_container_t res;
     std::size_t i = 0;
