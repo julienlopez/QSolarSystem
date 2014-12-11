@@ -65,7 +65,7 @@ void MainWindow::loadSystem()
     std::cout << neptune << std::endl;
     m_solarSystem.add(std::move(neptune));
 
-//    auto pluto = BodyParser::parseFromFile("Pluto");
-//    std::cout << pluto << std::endl;
-//    m_solarSystem.add(std::move(pluto));
+    auto pluto = BodyParser::parseFromFile("Pluto");
+    std::cout << pluto << std::endl;
+    m_solarSystem.add(std::move(pluto));
 }

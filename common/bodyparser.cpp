@@ -84,6 +84,10 @@ std::pair<std::string, std::string> BodyParser::parsePairKeyValue(const std::str
     if(pos == std::string::npos)
     {
         pos = line.find('~');
+        if(pos == std::string::npos)
+        {
+            pos = line.find(':');
+        }
     }
     assert(pos < line.size());
     const auto key = line.substr(0, pos);
@@ -104,7 +108,12 @@ Body::mass_t BodyParser::findMass(const string_container_t& lines)
         return utils::string::startsWith(p.first, title + " ");
     });
     assert(it_map != values.end());
-    auto scale = it_map->first.substr(6);
+    auto scale = it_map->first.substr(5);
+    while(!scale.empty() && scale[0] != '(')
+    {
+        scale.erase(0, 1);
+    }
+    scale.erase(0, 1);
     auto pos = scale.find(' ');
     assert(pos < scale.size());
     scale.erase(pos);
