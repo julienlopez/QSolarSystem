@@ -24,7 +24,7 @@ Screen::Screen(SolarSystem& solarSystem, QWidget* p) :
     setAutoFillBackground(true);
 
     m_paintTimer = new QTimer(this);
-    m_paintTimer->setInterval(s_dt * 1000);
+    m_paintTimer->setInterval(s_dt * 100);
     connect(m_paintTimer, &QTimer::timeout, this, &Screen::onPaintTimerClick);
 }
 

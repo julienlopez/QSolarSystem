@@ -86,7 +86,8 @@ std::pair<std::string, std::string> BodyParser::parsePairKeyValue(const std::str
         pos = line.find('~');
     }
     assert(pos < line.size());
-    const auto key = line.substr(0, pos - 1);
+    const auto key = line.substr(0, pos);
+    utils::string::trimAllSpaces(key);
     if(pos + 2 > line.size())
         return std::make_pair(key, "");
     return std::make_pair(key, line.substr(pos + 2));
@@ -119,12 +120,17 @@ Body::length_t BodyParser::findRadius(const string_container_t& lines)
     {
         title = "Radius";
         it = std::find_if(lines.begin(), lines.end(), [&title](const std::string& line){ return utils::string::contains(line, title); });
-        if(it == lines.end()) throw std::runtime_error("Unable to find the mean radius of the body in the file");
+        if(it == lines.end())
+        {
+            title = "Volumetric mean radius";
+            it = std::find_if(lines.begin(), lines.end(), [&title](const std::string& line){ return utils::string::contains(line, title); });
+            if(it == lines.end()) throw std::runtime_error("Unable to find the mean radius of the body in the file");
+        }
     }
     auto str = utils::string::trimAllSpaces(*it);
     auto values = parseLineWithTwoValues(str);
     auto it_map = std::find_if(values.begin(), values.end(), [&title](const std::pair<std::string, std::string>& p) {
-        return utils::string::startsWith(p.first, title + " ");
+        return utils::string::startsWith(p.first, title + " ") || utils::string::startsWith(p.first, title);
     });
     assert(it_map != values.end());
     auto valueStr = it_map->second;

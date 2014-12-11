@@ -48,4 +48,24 @@ void MainWindow::loadSystem()
     auto mars = BodyParser::parseFromFile("Mars");
     std::cout << mars << std::endl;
     m_solarSystem.add(std::move(mars));
+
+    auto jupiter = BodyParser::parseFromFile("Jupiter");
+    std::cout << jupiter << std::endl;
+    m_solarSystem.add(std::move(jupiter));
+
+    auto saturn = BodyParser::parseFromFile("Saturn");
+    std::cout << saturn << std::endl;
+    m_solarSystem.add(std::move(saturn));
+
+    auto uranus = BodyParser::parseFromFile("Uranus");
+    std::cout << uranus << std::endl;
+    m_solarSystem.add(std::move(uranus));
+
+    auto neptune = BodyParser::parseFromFile("Neptune");
+    std::cout << neptune << std::endl;
+    m_solarSystem.add(std::move(neptune));
+
+//    auto pluto = BodyParser::parseFromFile("Pluto");
+//    std::cout << pluto << std::endl;
+//    m_solarSystem.add(std::move(pluto));
 }
