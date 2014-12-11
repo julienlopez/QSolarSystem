@@ -111,7 +111,7 @@ void Screen::reset()
 
 void Screen::onPaintTimerClick()
 {
-    m_updater->update(s_dt * 100000 * boost::units::si::seconds, 100);
+    m_updater->update(s_dt * 1000000 * boost::units::si::seconds, 100);
     update();
 }
 

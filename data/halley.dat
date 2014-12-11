@@ -105,3 +105,7 @@ Geometric states/elements have no aberration corrections applied.
                   telnet ssd.jpl.nasa.gov 6775    (via command-line)
      Author     : Jon.Giorgini@jpl.nasa.gov
 *******************************************************************************
+VALUES ADDED FOR QSOLARSYSTEM
+*******************************************************************************
+Mean radius (km)         = 11                 Mass (10^14 kg ) = 2.2
+*******************************************************************************
