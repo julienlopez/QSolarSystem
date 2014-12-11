@@ -11,7 +11,6 @@ const double UpdaterBasicEulerIntegration::gravitational_constant = 6.67384E-11;
 UpdaterBasicEulerIntegration::UpdaterBasicEulerIntegration(SolarSystem& solarSystem):
     CRTP_Updater<UpdaterBasicEulerIntegration>(solarSystem)
 {
-    std::cout << "UpdaterBasicEulerIntegration::UpdaterBasicEulerIntegration()\n";
     m_solarSystem.forEachBody([this](Body& body){ m_bodies.push_back(body); });
 }
 
@@ -33,7 +32,6 @@ namespace
     template<class T>
     std::ostream& operator<<(std::ostream& o, const Point3D<T>& p)
     {
-        o << "{" << p.x() << ", " << p.y() << ", " << p.z() << "}";
         return o;
     }
 }
