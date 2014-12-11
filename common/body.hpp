@@ -4,6 +4,7 @@
 #include <string>
 
 #include <boost/units/quantity.hpp>
+#include <boost/units/systems/si/area.hpp>
 #include <boost/units/systems/si/mass.hpp>
 #include <boost/units/systems/si/length.hpp>
 #include <boost/units/systems/si/velocity.hpp>
@@ -35,6 +36,10 @@ public:
     const position_vector_t& position() const;
 
     const velocity_vector_t& velocity() const;
+
+    position_vector_t& position();
+
+    velocity_vector_t& velocity();
 
 private:
     const std::string m_name;

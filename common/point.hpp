@@ -18,22 +18,20 @@ public:
         std::fill(m_values.begin(), m_values.end(), T{});
     }
 
-//    template<class ... Args>
-//    Point(Args&&... args): m_values(std::forward<Args>(args)...)
-//    {}
-
-    Point(const T& t)
-    {
-        std::fill(m_values.begin(), m_values.end(), t);
-    }
-
     Point(typename std::initializer_list<T> values)
     {
-        assert(values.size() == DIM && "wrong number of arguments passed to construct Point");
-        std::size_t pos = 0;
-        for(auto it = values.begin(); it != values.end(); ++it, pos++)
+        if(values.size() == 1)
         {
-            m_values[pos] = *it;
+            std::fill(m_values.begin(), m_values.end(), *values.begin());
+        }
+        else
+        {
+            assert(values.size() == DIM && "wrong number of arguments passed to construct Point");
+            std::size_t pos = 0;
+            for(auto it = values.begin(); it != values.end(); ++it, pos++)
+            {
+                m_values[pos] = *it;
+            }
         }
     }
 
@@ -76,7 +74,7 @@ public:
 
     value_squared_type norm2() const
     {
-        return std::inner_product(m_values.cbegin(), m_values.cend(), m_values.cbegin(), value_squared_type());
+        return std::inner_product(m_values.cbegin(), m_values.cend(), m_values.cbegin(), value_squared_type{});
     }
 
     T norm() const
@@ -104,9 +102,9 @@ public:
     template<class U>
     Point<decltype(T() * U()), DIM> operator*(U u) const
     {
-        Point<decltype(T() * U()), DIM> res{decltype(T() * U())()};
+        Point<decltype(T() * U()), DIM> res;
         for(std::size_t i = 0; i < DIM; ++i)
-            res[i] *= u;
+            res[i] = m_values[i] * u;
         return res;
     }
 
@@ -116,9 +114,9 @@ public:
     template<class U>
     Point<decltype(T() / U()), DIM> operator/(U u) const
     {
-        Point<decltype(T() / U()), DIM> res{decltype(T() / U())()};
+        Point<decltype(T() / U()), DIM> res;
         for(std::size_t i = 0; i < DIM; ++i)
-            res[i] /= u;
+            res[i] = m_values[i] / u;
         return res;
     }
 

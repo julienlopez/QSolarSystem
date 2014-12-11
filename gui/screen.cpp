@@ -15,7 +15,7 @@ using std::placeholders::_1;
 constexpr double Screen::s_dt;
 
 Screen::Screen(SolarSystem& solarSystem, QWidget* p) :
-    QWidget(p), m_solarSystem(solarSystem), m_updater(UpdaterFactory::instance().create("UpdaterBoostNoUnits", std::ref(solarSystem)))
+    QWidget(p), m_solarSystem(solarSystem), m_updater(UpdaterFactory::instance().create("UpdaterBasicEulerIntegrationWithUnits", std::ref(solarSystem)))
 {
     setMinimumSize(800, 600);
     auto pal = palette();
@@ -48,8 +48,6 @@ void Screen::resizeEvent(QResizeEvent* evt)
 void Screen::paintEvent(QPaintEvent* evt)
 {
     Q_UNUSED(evt);
-    qDebug() << "Screen::paintEvent()";
-
     QPainter p(this);
 
     auto pen = p.pen();
@@ -64,19 +62,33 @@ void Screen::paintEvent(QPaintEvent* evt)
     p.drawLine(QPointF(0, m_zoomParameters.maxDistance), QPointF(0, -m_zoomParameters.maxDistance));
     p.drawLine(QPointF(m_zoomParameters.maxDistance, 0), QPointF(-m_zoomParameters.maxDistance, 0));
 
+
+    pen.setWidthF(0.2*10E+9);
+    p.setPen(pen);
+    QBrush brush1(Qt::darkGray);
+    p.setBrush(brush1);
+    drawTraces(p);
+
     pen.setWidthF(0.5*10E+9);
     p.setPen(pen);
-    QBrush brush(Qt::white);
-    p.setBrush(brush);
+    QBrush brush2(Qt::white);
+    p.setBrush(brush2);
     m_solarSystem.forEachBody(std::bind(&Screen::paintBody, this, std::ref(p), _1));
 }
 
 void Screen::paintBody(QPainter& painter, const Body& body)
 {
     const auto& position = body.position();
-    qDebug() << "drawing {" << position.x().value() << ", " << position.y().value() << "} : " << body.meanRadius().value();
     const auto diameter = std::max(body.meanRadius().value()*2, 5*10E+7);
-    painter.drawEllipse(QPointF(position.x().value(), position.y().value()), diameter, diameter);
+    const auto p = QPointF(position.x().value(), position.y().value());
+    painter.drawEllipse(p, diameter, diameter);
+    m_traces.push_back(p);
+}
+
+void Screen::drawTraces(QPainter& painter) const
+{
+    for(const auto& t : m_traces)
+        painter.drawPoint(t);
 }
 
 void Screen::play()
@@ -99,8 +111,7 @@ void Screen::reset()
 
 void Screen::onPaintTimerClick()
 {
-    qDebug() << "Screen::onPaintTimerClick()";
-    m_updater->update(s_dt * boost::units::si::seconds);
+    m_updater->update(s_dt * 100000 * boost::units::si::seconds, 100);
     update();
 }
 

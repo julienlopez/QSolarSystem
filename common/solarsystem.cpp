@@ -17,3 +17,8 @@ Body::length_t SolarSystem::longestDistanceFromTheCenter() const
     assert(it != m_bodies.cend());
     return it->position().norm();
 }
+
+std::size_t SolarSystem::count() const
+{
+    return m_bodies.size();
+}

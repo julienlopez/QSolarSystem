@@ -37,8 +37,10 @@ private:
     std::unique_ptr<iUpdater> m_updater;
     ZoomParameters m_zoomParameters;
     QTimer* m_paintTimer;
+    std::vector<QPointF> m_traces;
 
     void paintBody(QPainter& painter, const Body& body);
+    void drawTraces(QPainter& painter) const;
 
 signals:
 

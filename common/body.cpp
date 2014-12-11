@@ -36,6 +36,16 @@ auto Body::velocity() const -> const velocity_vector_t&
     return m_velocity;
 }
 
+auto Body::position() -> position_vector_t&
+{
+    return m_position;
+}
+
+auto Body::velocity() -> velocity_vector_t&
+{
+    return m_velocity;
+}
+
 std::ostream& operator<<(std::ostream& o, const Body& body)
 {
     o << std::fixed;// << std::setprecision(30);
