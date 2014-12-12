@@ -67,7 +67,10 @@ void Screen::paintEvent(QPaintEvent* evt)
     p.setPen(pen);
     QBrush brush1(Qt::darkGray);
     p.setBrush(brush1);
-    drawTraces(p);
+    if(m_displayTraces)
+    {
+        drawTraces(p);
+    }
 
     pen.setWidthF(0.5*10E+9);
     p.setPen(pen);
@@ -109,14 +112,20 @@ void Screen::reset()
 
 }
 
-void Screen::onPaintTimerClick()
-{
-    m_updater->update(s_dt * 1000000 * boost::units::si::seconds, 100);
-    update();
-}
-
 void Screen::step()
 {
     qDebug() << "Screen::step()";
     onPaintTimerClick();
+}
+
+void Screen::setDisplayTraces(bool display)
+{
+    m_displayTraces = display;
+    m_traces.clear();
+}
+
+void Screen::onPaintTimerClick()
+{
+    m_updater->update(s_dt * 1000000 * boost::units::si::seconds, 100);
+    update();
 }

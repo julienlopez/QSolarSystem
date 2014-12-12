@@ -38,6 +38,7 @@ private:
     ZoomParameters m_zoomParameters;
     QTimer* m_paintTimer;
     std::vector<QPointF> m_traces;
+    bool m_displayTraces = true;
 
     void paintBody(QPainter& painter, const Body& body);
     void drawTraces(QPainter& painter) const;
@@ -49,6 +50,7 @@ public slots:
     void pause();
     void reset();
     void step();
+    void setDisplayTraces(bool display);
 
 private slots:
     void onPaintTimerClick();

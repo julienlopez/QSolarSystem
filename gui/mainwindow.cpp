@@ -21,6 +21,7 @@ MainWindow::MainWindow(QWidget* p): QMainWindow(p)
     connect(commandDock, &CommandDock::pause, screen, &Screen::pause);
     connect(commandDock, &CommandDock::reset, screen, &Screen::reset);
     connect(commandDock, &CommandDock::step, screen, &Screen::step);
+    connect(commandDock, &CommandDock::displayTraces, screen, &Screen::setDisplayTraces);
 }
 
 MainWindow::~MainWindow()

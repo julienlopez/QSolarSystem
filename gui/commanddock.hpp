@@ -4,6 +4,7 @@
 #include <QDockWidget>
 
 class QPushButton;
+class QGroupBox;
 
 class CommandDock : public QDockWidget
 {
@@ -18,10 +19,14 @@ signals:
     void pause();
     void reset();
     void step();
+    void displayTraces(bool);
 
 private:
     template<class T>
     QPushButton* createButton(const QString& label, T fct);
+
+    QGroupBox* createGroupBoxCommands();
+    QGroupBox* createGroupBoxTraces();
 };
 
 #endif // COMMANDDOCK_HPP
